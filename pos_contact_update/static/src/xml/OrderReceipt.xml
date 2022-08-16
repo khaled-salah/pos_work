@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+        <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+            <xpath expr="//div[hasclass('pos-receipt')]/t[1]" position="replace">
+                <t t-if="receipt.client.has_pos_show_logo_partner">
+                    <t t-if="receipt.company.logo" groups="pos_contact_update.group_pos_logo_receipt_show">
+                        <img class="pos-receipt-logo" t-att-src="receipt.company.logo" alt="Logo"/>
+                        <br/>
+                    </t>
+                </t>
+                <t t-else="">
+
+                </t>
+            </xpath>
+            <xpath expr="//div[hasclass('pos-receipt')]/t[2]"
+                   position="replace">
+                    <t t-if="receipt.client.has_pos_show_logo_partner">
+                            <t t-if="!receipt.company.logo">
+                                <h2 class="pos-receipt-center-align"><t t-esc="receipt.company.name"/></h2>
+                                <br/>
+                            </t>
+                    </t>
+                <t t-else="">
+
+                </t>
+            </xpath>
+            <xpath expr="//div[hasclass('pos-receipt')]/div[hasclass('pos-receipt-contact')]" position="replace">
+                    <t t-if="receipt.client.has_pos_show_logo_partner">
+                            <div class="pos-receipt-contact"
+                                 groups="pos_contact_update.group_pos_logo_receipt_show">
+                <t t-if="receipt.company.contact_address">
+                    <div><t t-esc="receipt.company.contact_address" /></div>
+                </t>
+                                <t t-if="receipt.company.phone">
+                    <div>Tel:<t t-esc="receipt.company.phone"/></div>
+                </t>
+                                <t t-if="receipt.company.vat">
+                    <div><t t-esc="receipt.company.vat_label"/>:
+                        <t t-esc="receipt.company.vat"/></div>
+                </t>
+                                <t t-if="receipt.company.email">
+                    <div><t t-esc="receipt.company.email" /></div>
+                </t>
+                                <t t-if="receipt.company.website">
+                    <div><t t-esc="receipt.company.website" /></div>
+                </t>
+                                <t t-if="receipt.header_html">
+                    <t t-raw="receipt.header_html"/>
+                </t>
+                                <t t-if="!receipt.header_html and receipt.header">
+                    <div style="white-space:pre-line"><t t-esc="receipt.header" /></div>
+                </t>
+                                <t t-if="receipt.cashier">
+                    <div class="cashier">
+                        <div>--------------------------------</div>
+                        <div>Served by <t t-esc="receipt.cashier"/></div>
+                    </div>
+                </t>
+            </div>
+                    </t>
+                <t t-else="">
+
+                                </t>
+
+
+                            </xpath>
+            <xpath expr="//div[hasclass('pos-receipt')]/div[hasclass('orderlines')]" position="before">
+                <div>
+                    Student ID
+                    <span t-esc="receipt.client.student_id || ''" class="pos-receipt-right-align"/>
+                </div>
+                <div>
+                    Student Name
+                    <span t-esc="receipt.client.name || ''" class="pos-receipt-right-align"/>
+                </div>
+                <div>
+                    Grade
+                    <span t-esc="receipt.client.grade_name || ''" class="pos-receipt-right-align"/>
+                </div>
+                <div>
+                    School
+                    <span t-esc="receipt.client.school_name || ''" class="pos-receipt-right-align"/>
+                </div>
+                <div>
+                    Class
+                    <span t-esc="receipt.client.classes_name || ''" class="pos-receipt-right-align"/>
+                </div>
+                <br/>
+                <br/>
+            </xpath>
+            <xpath expr="//div[hasclass('pos-receipt')]/t[@t-if='isTaxIncluded']"
+                   position="replace">
+                <t t-if="isTaxIncluded">
+                    <t t-foreach="receipt.tax_details" t-as="tax" t-key="tax.name">
+                        <div>
+                            <t t-esc="tax.name"/>
+                            <span t-esc="env.pos.format_currency_no_symbol(tax.amount)"
+                                  class="pos-receipt-right-align"/>
+                        </div>
+                    </t>
+                    <!--                    <div>-->
+                    <!--                        Total Taxes-->
+                    <!--                        <span t-esc="env.pos.format_currency(receipt.total_tax)" class="pos-receipt-right-align"/>-->
+                    <!--                    </div>-->
+                </t>
+            </xpath>
+
+            <xpath expr="//div[hasclass('pos-receipt')]/div[hasclass('pos-receipt-order-data')]" position="replace">
+               <div>
+                   <img t-if="receipt.qr_code" id="qrcode" t-att-src="receipt.qr_code" class="pos-receipt-logo"/>
+                <br/>
+               </div>
+            </xpath>
+
+        </t>
+</templates>

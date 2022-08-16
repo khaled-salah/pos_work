@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+<!--     grade = fields.Many2one('student.grade',string='Grade')-->
+    <!--    classes = fields.Many2one('student.class',string='Class')-->
+    <!--    school =-->
+    <t t-name="ClientListScreen" t-inherit="point_of_sale.ClientListScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//table[hasclass('client-list')]/thead/tr/th" position="before">
+            <th> Student ID </th>
+        </xpath>
+        <xpath expr="//table[hasclass('client-list')]/thead/tr/th[3]" position="replace">
+            <th> Mobile </th>
+        </xpath>
+        <xpath expr="//table[hasclass('client-list')]/thead/tr/th[2]" position="after">
+            <th> Grade </th>
+            <th> School </th>
+            <th> Class </th>
+        </xpath>
+
+    </t>
+
+    <t t-name="ClientLine" t-inherit="point_of_sale.ClientLine" t-inherit-mode="extension" owl="1">
+        <xpath expr="//td[1]" position="before">
+            <td>
+                <t t-esc="props.partner.student_id or ''"/>
+            </td>
+        </xpath>
+        <xpath expr="//td[2]" position="after">
+            <td>
+                <t t-esc="props.partner.grade_name or ''"/>
+            </td>
+            <td>
+                <t t-esc="props.partner.school_name or ''"/>
+            </td>
+            <td>
+                <t t-esc="props.partner.classes_name or ''"/>
+            </td>
+        </xpath>
+        <xpath expr="//td[6]" position="replace">
+            <td t-if="!env.isMobile">
+                <t t-esc="props.partner.mobile || ''"/>
+            </td>
+        </xpath>
+
+    </t>
+
+
+    <t t-name="ClientDetailsEdit" t-inherit="point_of_sale.ClientDetailsEdit" t-inherit-mode="extension" owl="1">
+        <xpath expr="//input[hasclass('client-name')]" position="after">
+            <input class="client-student" name="student_id" t-att-value="props.partner.student_id or ''"
+                   placeholder="Student Id"/>
+        </xpath>
+        <xpath expr="//div[hasclass('client-details-right')]/div[3]" position="replace">
+            <div class="client-detail">
+                <span class="label">Mobile</span>
+                <input class="detail client-mobile" name="mobile" type="tel"
+                       t-on-change="captureChange"
+                       t-att-value="props.partner.mobile || ''"/>
+            </div>
+            <div class="client-detail">
+                                    <span class="label">Grade</span>
+                <select class="detail client-Grade needsclick" name="grade"
+                        t-on-change="captureChange">
+                                        <option value="">None</option>
+                    <t t-foreach="env.pos.grades" t-as="grade" t-key="grade.id">
+                                            <option t-att-value="grade.id"
+                                                    t-att-selected="props.partner.grade ? ((grade.id === props.partner.grade[0]) ? true : undefined) : undefined">
+                                                <t t-esc="grade.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+            <div class="client-detail">
+                                    <span class="label">School</span>
+                <select class="detail client-Grade needsclick" name="grade"
+                        t-on-change="captureChange">
+                                        <option value="">None</option>
+                    <t t-foreach="env.pos.schools" t-as="school" t-key="school.id">
+                                            <option t-att-value="school.id"
+                                                    t-att-selected="props.partner.school ? ((school.id === props.partner.school[0]) ? true : undefined) : undefined">
+                                                <t t-esc="school.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+            <div class="client-detail">
+                                    <span class="label">Class</span>
+                <select class="detail client-Grade needsclick" name="classes"
+                        t-on-change="captureChange">
+                                        <option value="">None</option>
+                    <t t-foreach="env.pos.classes" t-as="classes" t-key="classes.id">
+                                            <option t-att-value="classes.id"
+                                                    t-att-selected="props.partner.classes ? ((classes.id === props.partner.classes[0]) ? true : undefined) : undefined">
+                                                <t t-esc="classes.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+
+        </xpath>
+    </t>
+</templates>

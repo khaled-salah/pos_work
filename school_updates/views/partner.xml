@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.menu" id="account.menu_account_customer">
+            <field name="name">Students</field>
+        </record>
+        <record model="ir.ui.menu" id="account.menu_finance_receivables">
+            <field name="name">Students</field>
+        </record>
+        <record model="ir.ui.menu" id="sale.res_partner_menu">
+            <field name="name">Students</field>
+        </record>
+        <record model="ir.ui.menu" id="point_of_sale.menu_point_of_sale_customer">
+            <field name="name">Students</field>
+        </record>
+
+
+        <!--        <record  model="ir.actions.act_window" id="account.res_partner_action_customer">-->
+        <!--            <field name="name">Students</field>-->
+        <!--            <field name="type">ir.actions.act_window</field>-->
+        <!--            <field name="res_model">res.partner</field>-->
+        <!--            <field name="view_mode">kanban,tree,form</field>-->
+        <!--        </record>-->
+
+
+        <record id="res_partner_view_form_inherit_school" model="ir.ui.view">
+            <field name="name">res_partner_view_form_inherit_school</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='sales_purchases']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//div/field[@name='company_type']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//div/div/field[@name='parent_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//group/group/field[@name='function']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//group/group/field[@name='title']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//div/h1" position="replace">
+                    <h1>
+                        <field id="company" class="o_text_overflow" name="name" default_focus="1"
+                               placeholder="Student Name"
+                               attrs="{'required' : [('type', '=', 'contact'),('is_company', '=', True)], 'invisible': [('is_company','=', False)]}"/>
+                        <field id="individual" class="o_text_overflow" name="name" default_focus="1"
+                               placeholder="Student Name"
+                               attrs="{'required' : [('type', '=', 'contact'), ('is_company', '=', False)], 'invisible': [('is_company','=', True)]}"/>
+                    </h1>
+                </xpath>
+                <xpath expr="//div/h1" position="before">
+                    <group string="Student ID">
+                        <h1>
+                            <field id="student_ids" class="o_text_overflow" name="student_id"
+                                   placeholder="Student ID"/>
+                        </h1>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='vat']" position="replace">
+                    <field name="vat" placeholder="e.g. BE0477472701" attrs="{'readonly': [('parent_id','!=',False)]}"
+                           invisible="1"/>
+                    <field name="school"/>
+                    <field name="grade"/>
+                    <field name="classes"/>
+
+                </xpath>
+                <xpath expr="//field[@name='website']" position="attributes">
+                    <attribute name="invisible">1
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="has_pos_show_logo_partner"/>
+                </xpath>
+
+
+                <!--                <xpath expr="//group/group/span/b" position="replace">-->
+                <!--                    <b attrs="{'invisible': [('is_company', '=', False)]}">Contact</b>-->
+                <!--                          </xpath>-->
+
+            </field>
+        </record>
+        <record id="res_partner_view_purchase_account_buttons_school" model="ir.ui.view">
+            <field name="name">res_partner_view_purchase_account_buttons_school</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="purchase.res_partner_view_purchase_account_buttons"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='supplier_invoice_count']" position="attributes">
+                    <attribute name="invisible">1
+                    </attribute>
+                </xpath>
+                <xpath expr="//div[@name='button_box']/button[@name='%(purchase.act_res_partner_2_supplier_invoices)d']"
+                       position="attributes">
+                    <attribute name="invisible">1
+                    </attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="res_partner_view_tree_inherit_school" model="ir.ui.view">
+            <field name="name">res_partner_view_tree_inherit_school</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='display_name']" position="before">
+                    <field name="student_id" optional="show"/>
+                </xpath>
+                <xpath expr="//tree/field[@name='display_name']" position="after">
+                    <field name="grade" optional="show"/>
+                    <field name="classes" optional="show"/>
+                    <field name="school" optional="show"/>
+                    <field name="mobile" optional="show"/>
+                </xpath>
+                <xpath expr="//tree/field[@name='vat']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='user_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='state_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='activity_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='company_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="res_partner_res_partner_view_search_school" model="ir.ui.view">
+            <field name="name">res_partner_res_partner_view_search_school</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="student_id"/>
+                </xpath>
+                <xpath expr="//filter[@name='type_company']" position="replace">
+                    <!--                    <attribute name="string">Student Invoices</attribute>-->
+                    <filter string="Student ID" name="student_id" domain="[('student_id','!=',False)]"/>
+                    <filter string="Grade" name="grade" domain="[('grade','!=',False)]"/>
+                    <filter string="Class" name="classes" domain="[('classes','!=',False)]"/>
+                </xpath>
+                <xpath expr="//filter[@name='type_person']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='supplier']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//filter[@name='customer']" position="replace">
+                    <filter string="Student Invoices" name="customer" domain="[('customer_rank','>', 0)]"/>
+                </xpath>
+                 <xpath expr="//group/filter[@name='group_company']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//group/filter[@name='group_country']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+
+            </field>
+        </record>
+
+
+        <record id="account.res_partner_action_customer" model="ir.actions.act_window">
+            <field name="name">Students</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_student_id':1}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new customer in your address book
+                </p>
+                <p>
+                    Odoo helps you easily track all activities related to a customer.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                id="maintenance_equipment_report"
+                model="maintenance.equipment"
+                string="Maintenance Equipment"
+                report_type="qweb-pdf"
+                name="product_maintenance.maintenance_equipment_report_temp"
+                file="product_maintenance.maintenance_equipment_report_temp"
+        />
+        <template id="maintenance_equipment_report_temp">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <style type="text/css">
+                                table.supplier {
+                                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                                border-collapse: collapse;
+                                width: 100%;
+                                text-align : center;
+                                margin :auto;
+                                }
+
+                                table.supplier td, table.supplier th {
+                                border: 1px solid #ddd;
+                                padding: 8px;
+                                }
+
+                                table.supplier tr:nth-child(even){background-color: #f2f2f2;}
+
+                                table.supplier tr:hover {background-color: #ddd;}
+
+                                table.supplier th {
+                                padding-top: 12px;
+                                padding-bottom: 12px;
+                                text-align: left;
+                                background-color: #6D90CD ;
+                                color: white;
+                                text-align : center;
+                                }
+                            </style>
+
+
+                            <!--                            <div margin="0 auto" padding-top="0">-->
+                            <!--                                <table width="100%"  style="border: 1px solid #ddd; background-color: #EFECEB ;">-->
+                            <!--                                    <tr>-->
+                            <!--                                        <td width="30%" height="80px" style="border: 1px solid #ddd;">-->
+                            <!--                                            <span>-->
+                            <!--                                                <img src="sales_policy/static/description/logo.png" alt="logo"-->
+                            <!--                                                     width="100%" height="148px;"/>-->
+                            <!--                                            </span>-->
+                            <!--                                        </td>-->
+
+                            <!--                                        <td width="30%" style="border: 1px solid #ddd;" align="center">-->
+                            <!--                                            <h3>كشف استقبال سيارة</h3>-->
+                            <!--                                            <h6>امر تشغيل نقدا/أجل</h6>-->
+                            <!--                                            <h6>قطاع عام/قطاع خاص</h6>-->
+                            <!--                                        </td>-->
+                            <!--                                        <td width="30%" style="border: 1px solid #ddd;" align="center">-->
+                            <!--                                            <h4>مون ياي للصناعة والتجارة </h4>-->
+                            <!--                                        </td>-->
+                            <!--                                    </tr>-->
+
+                            <!--                                </table>-->
+                            <!--                            </div>-->
+                            <div align="center">
+                                <h3>Maintenance Equipment</h3>
+                            </div>
+                            <br/>
+                            <br/>
+
+                            <!--                            <div align="right" dir="rtl"  style="text-align:right">-->
+                            <table width="100%" class="supplier">
+                                <tr>
+
+                                    <th >
+                                        <h5>Equipment Name</h5>
+                                    </th>
+                                    <td>
+                                        <h6>
+                                            <field t-field="o.name"/>
+                                        </h6>
+                                    </td>
+
+                                    <th >
+                                        <h5>Equipment Category</h5>
+                                    </th>
+
+                                    <td>
+                                        <h6>
+                                            <field t-field="o.category_id"/>
+                                        </h6>
+                                    </td>
+                                    <th >
+                                        <h5>Technician</h5>
+                                    </th>
+
+                                    <td>
+                                        <h6>
+                                            <field t-field="o.technician_user_id"/>
+                                        </h6>
+                                    </td>
+
+
+
+
+
+                                </tr>
+                                <tr>
+
+                                    <th >
+                                        <h5> Assigned Date	</h5>
+                                    </th>
+                                    <td>
+                                        <h6>
+                                            <field t-field="o.assign_date"/>
+                                        </h6>
+                                    </td>
+                                     <th >
+                                        <h5>Maintenance Team</h5>
+                                    </th>
+
+                                    <td>
+                                        <h6>
+                                            <field t-field="o.maintenance_team_id"/>
+                                        </h6>
+                                    </td>
+                                     <th >
+                                        <h5>Scrap Date</h5>
+                                    </th>
+
+                                    <td>
+                                        <h6>
+                                            <field t-field="o.scrap_date"/>
+                                        </h6>
+                                    </td>
+                                </tr>
+
+
+
+                            </table>
+                            <br/>
+                            <div align="center">
+                                <h3>Product Information</h3>
+                            </div>
+                            <table width="100%" class="supplier">
+                                <tr>
+
+                                    <th >
+                                        <h5>Vendor</h5>
+                                    </th>
+                                    <td>
+                                        <h6>
+                                            <field t-field="o.partner_id"/>
+                                        </h6>
+                                    </td>
+
+                                    <th >
+                                        <h5>Vendor Reference</h5>
+                                    </th>
+
+                                    <td>
+                                        <h6>
+                                            <field t-field="o.partner_ref"/>
+                                        </h6>
+                                    </td>
+                                    <th >
+                                        <h5>Model</h5>
+                                    </th>
+
+                                    <td>
+                                        <h6>
+                                            <field t-field="o.model"/>
+                                        </h6>
+                                    </td>
+
+
+
+
+
+                                </tr>
+                                <tr>
+
+                                    <th >
+                                        <h5>Serial Number</h5>
+                                    </th>
+                                    <td>
+                                        <h6>
+                                            <field t-field="o.serial_no"/>
+                                        </h6>
+                                    </td>
+                                     <th >
+                                        <h5>Warranty Expiration Date</h5>
+                                    </th>
+
+                                    <td>
+                                        <h6>
+                                            <field t-field="o.warranty_date"/>
+                                        </h6>
+                                    </td>
+                                     <th >
+                                        <h5>Cost</h5>
+                                    </th>
+
+                                    <td>
+                                        <h6>
+                                            <field t-field="o.cost"/>
+                                        </h6>
+                                    </td>
+                                </tr>
+
+
+
+                            </table>
+
+                            <br/>
+
+                            <p><h7><field t-field="o.note"/></h7></p>
+
+                            <!--                            </div>-->
+
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
+
+
+
