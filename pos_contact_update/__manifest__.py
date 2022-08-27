@@ -14,7 +14,7 @@
 
     # always loaded
     'data': [
-        # 'views/views.xml',
+        'views/views.xml',
     ],
     'demo': [
         'demo/demo.xml',
@@ -24,7 +24,7 @@
             'pos_contact_update/static/src/js/customer_filter_pos.js',
             'pos_contact_update/static/src/js/customer_filter.js',
             'pos_contact_update/static/src/js/QrCode.js',
-            # 'pos_contact_update/static/src/lib/qrcode.js',
+            'web/static/lib/zxing-library/zxing-library.js',
         ],
         'web.assets_qweb': [
             'pos_contact_update/static/src/xml/**/*',

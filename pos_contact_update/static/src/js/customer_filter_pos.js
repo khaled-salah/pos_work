@@ -30,8 +30,8 @@ odoo.define('pos_contact_update.customer_filter_pos', function(require){
     models.PosModel = models.PosModel.extend({
         initialize: function(session, attributes){
             var self = this;
-            models.load_fields('res.partner', ['has_pos_show_logo_partner','student_id','grade','grade_name','classes','classes_name','school','school_name']);
-            models.load_fields('res.users', ['has_pos_show_logo']);
+            models.load_fields('res.partner', ['has_edit_partner_pos','has_pos_show_logo_partner','student_id','grade','grade_name','classes','classes_name','school','school_name']);
+            models.load_fields('res.users', ['has_pos_show_logo','has_edit_partner_pos']);
             _super_product.initialize.apply(this, arguments);
         }
     });

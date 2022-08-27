@@ -1,4 +1,4 @@
-odoo.define('pos_contact_update.pos', function (require) {
+odoo.define('pos_contact_update.QrCode', function (require) {
 "use strict";
 
 const { Gui } = require('point_of_sale.Gui');
@@ -17,7 +17,6 @@ models.Order = models.Order.extend({
     export_for_printing: function() {
       var result = _super_order.export_for_printing.apply(this,arguments);
           const codeWriter = new window.ZXing.BrowserQRCodeSvgWriter()
-          console.log('result.name',result.name)
           let qr_values = this.compute_sa_qr_code(result.name);
           let qr_code_svg = new XMLSerializer().serializeToString(codeWriter.write(qr_values, 150, 150));
           result.qr_code = "data:image/svg+xml;base64,"+ window.btoa(qr_code_svg);

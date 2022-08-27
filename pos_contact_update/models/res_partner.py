@@ -6,7 +6,12 @@ from odoo import models, fields, api
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    has_pos_show_logo_partner = fields.Boolean()
+    grade_name = fields.Char(related='grade.name', string='Grade')
+    classes_name = fields.Char(related='classes.name', string='Grade')
+    school_name = fields.Char(related='school.name', string='Grade')
+    has_pos_show_logo_partner = fields.Boolean('Show Logo POS Receipt')
+    has_edit_partner_pos = fields.Boolean('Edit POS Partner',store=True)
+
 
 
     # def get_students(self, student_id=2):

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-<!--     grade = fields.Many2one('student.grade',string='Grade')-->
-    <!--    classes = fields.Many2one('student.class',string='Class')-->
-    <!--    school =-->
+
     <t t-name="ClientListScreen" t-inherit="point_of_sale.ClientListScreen" t-inherit-mode="extension" owl="1">
         <xpath expr="//table[hasclass('client-list')]/thead/tr/th" position="before">
             <th> Student ID </th>
@@ -15,15 +13,28 @@
             <th> School </th>
             <th> Class </th>
         </xpath>
+         <xpath expr="//table[hasclass('client-list')]/thead/tr/th[7]" position="replace">
+
+        </xpath>
 
     </t>
-
+    <!--edit-client-button-->
     <t t-name="ClientLine" t-inherit="point_of_sale.ClientLine" t-inherit-mode="extension" owl="1">
+        <xpath expr="//button[hasclass('edit-client-button')]" position="replace">
+            <t t-if="env.pos.user.has_edit_partner_pos">
+                 <br/>
+                <button class="edit-client-button" t-on-click.stop="trigger('click-edit')">EDIT</button>
+            </t>
+            <t t-else="">
+
+                </t>
+        </xpath>
         <xpath expr="//td[1]" position="before">
             <td>
                 <t t-esc="props.partner.student_id or ''"/>
             </td>
         </xpath>
+
         <xpath expr="//td[2]" position="after">
             <td>
                 <t t-esc="props.partner.grade_name or ''"/>
@@ -39,6 +50,9 @@
             <td t-if="!env.isMobile">
                 <t t-esc="props.partner.mobile || ''"/>
             </td>
+        </xpath>
+         <xpath expr="//td[7]" position="replace">
+
         </xpath>
 
     </t>
